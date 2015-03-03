@@ -1,5 +1,6 @@
 package biz.gungnir.overlap2d;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.physics.PhysicsBodyLoader;
@@ -12,7 +13,7 @@ public class MovingPlatform implements IScript {
 	private CompositeItem item;
 	private float originalPosY;
 	private int direction = 1;
-	private float moveSpeed = 50f, margin = 100f;
+	private float moveSpeed = 0f, margin = 0f;
 
 	@Override
 	public void init(CompositeItem item){
@@ -21,6 +22,10 @@ public class MovingPlatform implements IScript {
 
 		if(item.getCustomVariables().getFloatVariable("platformSpeed") != null) moveSpeed = item.getCustomVariables().getFloatVariable("platformSpeed");
 		if(item.getCustomVariables().getFloatVariable("platformMargin") != null) margin = item.getCustomVariables().getFloatVariable("platformMargin");
+		Gdx.app.log("platform moveSpeed", Float.toString(moveSpeed));
+		Gdx.app.log("platform margin", Float.toString(margin));
+		Gdx.app.log("item position", Float.toString(item.getBody().getPosition().y));
+
 	}
 
 	@Override
@@ -34,7 +39,8 @@ public class MovingPlatform implements IScript {
 	}
 
 	public float getY(){
-		return item.getBody().getPosition().y;
+		Vector2 curPos = item.getBody().getPosition();
+		return curPos.y;
 	}
 	public void setY(float y){
 		Vector2 currPos = item.getBody().getPosition();

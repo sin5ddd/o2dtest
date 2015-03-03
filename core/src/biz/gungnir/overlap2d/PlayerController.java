@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
+import com.badlogic.gdx.physics.box2d.World;
 import com.uwsoft.editor.renderer.Overlap2DStage;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.actor.SpriteAnimation;
@@ -49,7 +50,7 @@ public class PlayerController implements IScript{
 		isWalking = false;
 		if(Gdx.input.isKeyPressed(Input.Keys.D)){
 			item.setX(item.getX() + delta*moveSpeed);
-			item.setScaleX(-1F);
+			item.setScaleX(1f);
 			isWalking = true;
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.A)){
@@ -58,8 +59,8 @@ public class PlayerController implements IScript{
 			isWalking = true;
 		}
 
-		if(wasWalking && isWalking) animation.pause();
-		if(!wasWalking && !isWalking) animation.start();
+		if(wasWalking && !isWalking) animation.pause();
+		if(!wasWalking && isWalking) animation.start();
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
 			// Jump
 			if(isGrounded || jumpCounter < 2){
@@ -81,7 +82,7 @@ public class PlayerController implements IScript{
 		if(raySize < 5f) raySize = 5f;
 		if(verticalSpeed > 0) return;
 
-		Vector2 rayFrom = new Vector2((item.getX() + item.getWidth() / 2) * PhysicsBodyLoader.SCALE, item.getY()*PhysicsBodyLoader.SCALE);
+		Vector2 rayFrom = new Vector2((item.getX() + item.getWidth() / 2) * PhysicsBodyLoader.SCALE, (item.getY() + rayGap) * PhysicsBodyLoader.SCALE);
 		Vector2 rayTo = new Vector2((item.getX() + item.getWidth() / 2) * PhysicsBodyLoader.SCALE, (item.getY() - raySize) * PhysicsBodyLoader.SCALE);
 
 //		Gdx.app.log("stage", stage.toString());
@@ -96,7 +97,7 @@ public class PlayerController implements IScript{
 				return 0;
 			}
 		};
-//		stage.getWorld().rayCast(r, rayFrom, rayTo);
+		stage.getWorld().rayCast(r, rayFrom, rayTo);
 //		Gdx.app.log("reportRayFixture",r.toString());
 	}
 
