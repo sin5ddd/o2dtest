@@ -12,7 +12,7 @@ import com.uwsoft.editor.renderer.script.IScript;
 public class MovingPlatform implements IScript {
 	private CompositeItem item;
 	private float originalPosY;
-	private int direction = 1;
+	private int direction = -1;
 	private float moveSpeed = 0f, margin = 0f;
 
 	@Override
@@ -24,7 +24,7 @@ public class MovingPlatform implements IScript {
 		if(item.getCustomVariables().getFloatVariable("platformMargin") != null) margin = item.getCustomVariables().getFloatVariable("platformMargin");
 		Gdx.app.log("platform moveSpeed", Float.toString(moveSpeed));
 		Gdx.app.log("platform margin", Float.toString(margin));
-		Gdx.app.log("item position", Float.toString(item.getBody().getPosition().y));
+		Gdx.app.log("item position", Float.toString(originalPosY));
 
 	}
 
@@ -40,10 +40,16 @@ public class MovingPlatform implements IScript {
 
 	public float getY(){
 		Vector2 curPos = item.getBody().getPosition();
-		return curPos.y;
+		return curPos.y / PhysicsBodyLoader.SCALE;
 	}
 	public void setY(float y){
 		Vector2 currPos = item.getBody().getPosition();
 		item.getBody().setTransform(currPos.x, y * PhysicsBodyLoader.SCALE, item.getBody().getAngle());
+		Gdx.app.log("current pos", Float.toString(getY()));
+//		float elevation = 2f;
+//		if(direction <= 0) elevation = -2f;
+//		else elevation = 2f;
+//		item.getBody().applyLinearImpulse(0, elevation, item.getOriginX(), item.getOriginY(), true);
+//		Gdx.app.log("elevation", Float.toString(elevation));
 	}
 }
