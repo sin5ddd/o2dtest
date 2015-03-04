@@ -4,25 +4,27 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 public class Overlap2DTest extends ApplicationAdapter {
 	private Box2DDebugRenderer debugRenderer;
 	private Matrix4 debugMatrix;
-	private InputMultiplexer inputMultiplexer;
 	private GameStage gameStage;
 	private MenuStage menuStage;
 
 
 	@Override
 	public void create () {
+		InputMultiplexer inputMultiplexer;
+		O2DTestResourceManager rm;
+
+		rm = new O2DTestResourceManager();
+		rm.initO2DResources();
 
 		inputMultiplexer = new InputMultiplexer();
-		gameStage = new GameStage();
-		menuStage = new MenuStage(gameStage);
+		gameStage = new GameStage(rm);
+		menuStage = new MenuStage(rm, gameStage);
 		inputMultiplexer.addProcessor(gameStage);
 		inputMultiplexer.addProcessor(menuStage);
 

@@ -7,6 +7,7 @@ import com.uwsoft.editor.renderer.resources.ResourceManager;
 
 /**
  * Created by sin5d on 2015/02/27.
+ * Resource manager which used for any game scene classes
  */
 public class O2DTestResourceManager extends ResourceManager {
 

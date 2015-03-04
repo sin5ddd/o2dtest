@@ -2,21 +2,28 @@ package biz.gungnir.overlap2d;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.uwsoft.editor.renderer.Overlap2DStage;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.actor.IBaseItem;
 
 /**
  * Created by kimumoku on 2015/02/27.
+ * main game scene
  */
 public class GameStage extends Overlap2DStage{
 	private PlayerController player;
-	public GameStage(){
+	private O2DTestResourceManager rm;
+
+	public GameStage(O2DTestResourceManager rm){
+		super(new StretchViewport(rm.stageWidth, rm.currentResolution.height));
+		this.rm = rm;
 		player = new PlayerController(this);
 		World world = new World(new Vector2(0, -98f), true);
 		this.essentials.world = world;
 		this.setDebugInvisible(true);
-		initSceneLoader();
+		initSceneLoader(this.rm);
+		sceneLoader.setResolution(this.rm.currentResolution.name);
 		sceneLoader.loadScene("MainScene");
 		sceneLoader.getRoot().getCompositeById("player").addScript(player);
 		addActor(sceneLoader.getRoot());
