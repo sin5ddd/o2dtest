@@ -48,21 +48,27 @@ public class PlayerController implements IScript{
 		boolean wasWalking = isWalking;
 		isWalking = false;
 		if(Gdx.input.isKeyPressed(Input.Keys.D)){
-			item.setX(item.getX() + delta*moveSpeed);
-			item.setScaleX(1f);
-			isWalking = true;
+			if(item.getX() + item.getWidth() > stage.getWidth());
+			else {
+				item.setX(item.getX() + delta * moveSpeed);
+				item.setScaleX(1f);
+				isWalking = true;
+			}
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.A)){
-			item.setX(item.getX() - delta*moveSpeed);
-			item.setScaleX(-1f);
-			isWalking = true;
+			if(item.getX() < 0);
+			else {
+				item.setX(item.getX() - delta * moveSpeed);
+				item.setScaleX(-1f);
+				isWalking = true;
+			}
 		}
 
 		if(wasWalking && !isWalking) animation.pause();
 		if(!wasWalking && isWalking) animation.start();
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
 			// Jump
-			if(isGrounded || jumpCounter < 2){
+			if(isGrounded || jumpCounter < 1){
 				verticalSpeed = 460f;
 				isGrounded = false;
 				jumpCounter++;
@@ -107,5 +113,10 @@ public class PlayerController implements IScript{
 		item.setX(initialCoordinates.x);
 		item.setY(initialCoordinates.y);
 		verticalSpeed = 0;
+	}
+	public boolean isAlive(){
+		Gdx.app.log("isAlive", Float.toString(this.getActor().getY()));
+		if (this.getActor().getY() < -80) return false;
+		else return true;
 	}
 }

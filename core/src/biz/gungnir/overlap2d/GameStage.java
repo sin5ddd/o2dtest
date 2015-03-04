@@ -1,5 +1,6 @@
 package biz.gungnir.overlap2d;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -12,7 +13,8 @@ import com.uwsoft.editor.renderer.actor.IBaseItem;
  * main game scene
  */
 public class GameStage extends Overlap2DStage{
-	private PlayerController player;
+	public PlayerController player;
+	public float position;
 
 	public GameStage(O2DTestResourceManager rm){
 		super(new StretchViewport(rm.currentResolution.width, rm.currentResolution.height));
@@ -35,9 +37,11 @@ public class GameStage extends Overlap2DStage{
 	}
 	public void act(float delta){
 		super.act(delta);
+		position = player.getActor().getY();
 //		((OrthographicCamera)getCamera()).position.x = player.getActor().getX();
 	}
 	public void restart(){
 		player.reset();
+		Gdx.app.log("Player Position", Float.toString(position));
 	}
 }

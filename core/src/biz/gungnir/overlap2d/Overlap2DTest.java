@@ -45,6 +45,9 @@ public class Overlap2DTest extends ApplicationAdapter {
 
 		menuStage.act();
 		menuStage.draw();
+
+		if(!gameStage.player.isAlive()){ menuStage.gameover();}
+		else { menuStage.restart();}
 //		debugRenderer.render(gameStage.getWorld(), debugMatrix);
 	}
 }
