@@ -13,17 +13,14 @@ import com.uwsoft.editor.renderer.actor.IBaseItem;
  */
 public class GameStage extends Overlap2DStage{
 	private PlayerController player;
-	private O2DTestResourceManager rm;
 
 	public GameStage(O2DTestResourceManager rm){
-		super(new StretchViewport(rm.stageWidth, rm.currentResolution.height));
-		this.rm = rm;
+		super(new StretchViewport(rm.currentResolution.width, rm.currentResolution.height));
 		player = new PlayerController(this);
-		World world = new World(new Vector2(0, -98f), true);
-		this.essentials.world = world;
-		this.setDebugInvisible(true);
-		initSceneLoader(this.rm);
-		sceneLoader.setResolution(this.rm.currentResolution.name);
+		essentials.world = new World(new Vector2(0, -98f), true);
+		setDebugInvisible(true);
+		initSceneLoader(rm);
+		sceneLoader.setResolution(rm.currentResolution.name);
 		sceneLoader.loadScene("MainScene");
 		sceneLoader.getRoot().getCompositeById("player").addScript(player);
 		addActor(sceneLoader.getRoot());
@@ -38,6 +35,7 @@ public class GameStage extends Overlap2DStage{
 	}
 	public void act(float delta){
 		super.act(delta);
+//		((OrthographicCamera)getCamera()).position.x = player.getActor().getX();
 	}
 	public void restart(){
 		player.reset();

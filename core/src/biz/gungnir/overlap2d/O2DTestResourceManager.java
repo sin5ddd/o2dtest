@@ -20,6 +20,7 @@ public class O2DTestResourceManager extends ResourceManager {
 
 		stageWidth = Gdx.graphics.getHeight() / currentResolution.height * Gdx.graphics.getWidth();
 		setWorkingResolution(currentResolution.name);
+		Gdx.app.log("current resolution", currentResolution.name);
 
 		initAllResources();
 	}

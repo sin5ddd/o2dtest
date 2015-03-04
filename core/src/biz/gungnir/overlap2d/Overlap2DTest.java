@@ -45,6 +45,6 @@ public class Overlap2DTest extends ApplicationAdapter {
 
 		menuStage.act();
 		menuStage.draw();
-		debugRenderer.render(gameStage.getWorld(), debugMatrix);
+//		debugRenderer.render(gameStage.getWorld(), debugMatrix);
 	}
 }

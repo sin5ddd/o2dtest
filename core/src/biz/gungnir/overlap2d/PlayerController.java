@@ -99,6 +99,9 @@ public class PlayerController implements IScript{
 		stage.getWorld().rayCast(r, rayFrom, rayTo);
 //		Gdx.app.log("reportRayFixture",r.toString());
 	}
+	public CompositeItem getActor(){
+		return item;
+	}
 
 	public void reset(){
 		item.setX(initialCoordinates.x);
